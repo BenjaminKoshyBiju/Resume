@@ -7,7 +7,7 @@ from .models import UserDetails
 
 
 @login_required
-def resumeDetail(request):
+def resume(request):
   #  UserDetails = UserDetails.objects.filter(user_id=request.user.id)
     user = request.user
     try:
@@ -17,6 +17,14 @@ def resumeDetail(request):
      user_details = None
 
     return render(request, 'index.html', {'user_details': user_details})
+
+
+
+@login_required
+def resumeDetail(request):
+  
+
+    return render(request, 'resume_details.html')
 
 
 
