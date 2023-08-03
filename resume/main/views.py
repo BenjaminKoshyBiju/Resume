@@ -6,12 +6,17 @@ from .models import UserDetails
 # Create your views here.
 
 
-# UserDetails = UserDetails.objects.all()
 @login_required
-def resumeDetail(request,pk):
+def resumeDetail(request):
   #  UserDetails = UserDetails.objects.filter(user_id=request.user.id)
-    UserDetails =UserDetails.objects.get(id=pk)
-    return render(request,'index.html',{'userDetails': UserDetails})
+    user = request.user
+    try:
+        user_details = UserDetails.objects.get(user=user)
+    except UserDetails.DoesNotExist:
+        # Handle the case when user details are not found in the database
+     user_details = None
+
+    return render(request, 'index.html', {'user_details': user_details})
 
 
 
