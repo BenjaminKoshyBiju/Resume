@@ -5,18 +5,21 @@ from datetime import date
 # Create your models here.
 
 class UserDetails(models.Model):
-    name = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
     phone = models.CharField(max_length=10)
     user = models.ForeignKey(User,default=None, on_delete=models.CASCADE)
     address =  models.CharField(max_length=150)
     email = models.EmailField(max_length=254)
     interests = models.CharField(max_length=500)
+    img=models.ImageField(upload_to='img', null=True)
 
 
 class Experience(models.Model):
     title = models.CharField(max_length=100)
     companyName = models.CharField(max_length=150)
     data= models.CharField(max_length=450)
+    date = models.DateField ("Date")
     user = models.ForeignKey(User,default=None, on_delete=models.CASCADE)
 
 
