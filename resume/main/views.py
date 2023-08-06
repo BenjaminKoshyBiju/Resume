@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from .models import UserDetails,Education,Experience,Projects
+from .forms import ResumeDetailsForm
 # Create your views here.
 
 
@@ -20,59 +21,67 @@ def resume(request):
 
 
 
-@login_required
+
 def resumeDetail(request):
     
-    
+    form = ResumeDetailsForm()
 
     if request.method=='POST':
-        personal_data = get_object_or_404(UserDetails, id=request.POST.get('user_id'))
-        experience=get_object_or_404(Experience, id=request.POST.get('user_id'))
-        education=get_object_or_404(Education, id=request.POST.get('user_id'))
-        projects=get_object_or_404(Projects, id=request.POST.get('user_id'))
-        first_name = personal_data.first_name
-        last_name=personal_data.last_name
-        address=personal_data.address
-        email=personal_data.email
-        interests=personal_data.interests
-        phone = personal_data.phone
-        img=personal_data.img
+        form = ResumeDetailsForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('resume')  # Replace 'success_url' with the URL to redirect after successful form submission
 
 
-        heading=projects.heading
-        pImg=projects.img
-        desc=projects.desc
+    return render(request, 'resume_det.html', {'form': form})
+    #     personal_data = get_object_or_404(UserDetails, id=request.POST.get('user_id'))
+    #     experience=get_object_or_404(Experience, id=request.POST.get('user_id'))
+    #     education=get_object_or_404(Education, id=request.POST.get('user_id'))
+    #     projects=get_object_or_404(Projects, id=request.POST.get('user_id'))
+    #     first_name = personal_data.first_name
+    #     last_name=personal_data.last_name
+    #     address=personal_data.address
+    #     email=personal_data.email
+    #     interests=personal_data.interests
+    #     phone = personal_data.phone
+    #     img=personal_data.img
 
 
-        title=experience.title
-        companyName=experience.companyName
-        data=experience.data
-        date=experience.date
+    #     heading=projects.heading
+    #     pImg=projects.img
+    #     desc=projects.desc
 
-        collegeName=education.collegeName
-        date=education.date
-        degree=education.Degree
 
-        personalData = UserDetails(first_name=first_name,last_name=last_name,img=img,address=address,
-                                   email=email,interests=interests,phone=phone)
-        projectData=Projects(heading=heading,img=pImg,desc=desc)
-        experienceData=Experience(title=title,companyName=companyName,data=data,date=date)
-        educationData=Education(collegeName=collegeName,date=date,degree=degree)
+    #     title=experience.title
+    #     companyName=experience.companyName
+    #     data=experience.data
+    #     date=experience.date
 
-        personalData.save()
-        print("saved successfully")
+    #     collegeName=education.collegeName
+    #     date=education.date
+    #     degree=education.Degree
 
-        experienceData.save()
-        print("saved successfully")
+    #     personalData = UserDetails(first_name=first_name,last_name=last_name,img=img,address=address,
+    #                                email=email,interests=interests,phone=phone)
+    #     projectData=Projects(heading=heading,img=pImg,desc=desc)
+    #     experienceData=Experience(title=title,companyName=companyName,data=data,date=date)
+    #     educationData=Education(collegeName=collegeName,date=date,degree=degree)
 
-        projectData.save()
-        print("saved successfully")
+    #     personalData.save()
+    #     print("saved successfully")
 
-        educationData.save()
-        print("saved successfully")
-        return redirect('index.html')
-    else:     
-        return render(request,'resume_details.html')
+    #     experienceData.save()
+    #     print("saved successfully")
+
+    #     projectData.save()
+    #     print("saved successfully")
+
+    #     educationData.save()
+    #     print("saved successfully")
+    #     return redirect('index.html')
+    # else:     
+    #     return render(request,'resume_details.html')
+
 
 
 
