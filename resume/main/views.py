@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from .models import UserDetails,Education,Experience,Projects
-from .forms import ResumeDetailsForm
+from .forms import ResumeDetailsForm,EducationForm,ExperienceForm,ProjectForm
 # Create your views here.
 
 
@@ -24,42 +24,57 @@ def resume(request):
 
 def resumeDetail(request):
     
-    form = ResumeDetailsForm()
-
+    form = ResumeDetailsForm() #was getting error that why added
+    formExp= ExperienceForm()
+    formEdu= EducationForm()
+    formPro= ProjectForm()
     if request.method=='POST':
         form = ResumeDetailsForm(request.POST, request.FILES)
+        formExp = ExperienceForm(request.POST, request.FILES)
+        formEdu = EducationForm(request.POST, request.FILES)
+        formPro = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('resume')  # Replace 'success_url' with the URL to redirect after successful form submission
+        
+        if formExp.is_valid():
+            formExp.save()
+        
+        if formEdu.is_valid():
+            formEdu.save()
+
+        if formPro.is_valid():
+            formPro.save()
+                
+            return redirect('resume')  
 
 
     return render(request, 'resume_det.html', {'form': form})
-    #     personal_data = get_object_or_404(UserDetails, id=request.POST.get('user_id'))
-    #     experience=get_object_or_404(Experience, id=request.POST.get('user_id'))
-    #     education=get_object_or_404(Education, id=request.POST.get('user_id'))
-    #     projects=get_object_or_404(Projects, id=request.POST.get('user_id'))
-    #     first_name = personal_data.first_name
-    #     last_name=personal_data.last_name
-    #     address=personal_data.address
-    #     email=personal_data.email
-    #     interests=personal_data.interests
-    #     phone = personal_data.phone
-    #     img=personal_data.img
+        # personal_data = get_object_or_404(UserDetails, id=request.POST.get('user_id'))
+        # experience=get_object_or_404(Experience, id=request.POST.get('user_id'))
+        # education=get_object_or_404(Education, id=request.POST.get('user_id'))
+        # projects=get_object_or_404(Projects, id=request.POST.get('user_id'))
+    #     first_name = request.POST['first_name']
+    #     last_name=request.POST['last_name']
+    #     address=request.POST['address']
+    #     email=request.POST['email']
+    #     interests=request.POST['interests']
+    #     phone = request.POST['phone']
+    #     img=request.POST['img']
 
 
-    #     heading=projects.heading
-    #     pImg=projects.img
-    #     desc=projects.desc
+    #     heading=request.POST['first_name']
+    #     pImg=request.POST['first_name']
+    #     desc=request.POST['first_name']
 
 
-    #     title=experience.title
-    #     companyName=experience.companyName
-    #     data=experience.data
-    #     date=experience.date
+    #     title=request.POST['first_name']
+    #     companyName=request.POST['first_name']
+    #     data=request.POST['first_name']
+    #     date=request.POST['first_name']
 
-    #     collegeName=education.collegeName
-    #     date=education.date
-    #     degree=education.Degree
+    #     collegeName=request.POST['first_name']
+    #     date=request.POST['first_name']
+    #     degree=request.POST['first_name']
 
     #     personalData = UserDetails(first_name=first_name,last_name=last_name,img=img,address=address,
     #                                email=email,interests=interests,phone=phone)
