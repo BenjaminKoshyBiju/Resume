@@ -25,78 +25,46 @@ def resume(request):
 def resumeDetail(request):
     
     form = ResumeDetailsForm() #was getting error that why added
-    formExp= ExperienceForm()
+    
     formEdu= EducationForm()
     formPro= ProjectForm()
     if request.method=='POST':
         form = ResumeDetailsForm(request.POST, request.FILES)
-        formExp = ExperienceForm(request.POST, request.FILES)
+        
         formEdu = EducationForm(request.POST, request.FILES)
         formPro = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-        
-        if formExp.is_valid():
-            formExp.save()
+            new_entry = form.save(commit=False)
+            new_entry.user = request.user  # Assign the logged-in user
+            new_entry.save()
+            return redirect('experience') 
         
         if formEdu.is_valid():
             formEdu.save()
+            return redirect('resume') 
 
         if formPro.is_valid():
             formPro.save()
-                
             return redirect('resume')  
 
 
+
+
     return render(request, 'resume_det.html', {'form': form})
-        # personal_data = get_object_or_404(UserDetails, id=request.POST.get('user_id'))
-        # experience=get_object_or_404(Experience, id=request.POST.get('user_id'))
-        # education=get_object_or_404(Education, id=request.POST.get('user_id'))
-        # projects=get_object_or_404(Projects, id=request.POST.get('user_id'))
-    #     first_name = request.POST['first_name']
-    #     last_name=request.POST['last_name']
-    #     address=request.POST['address']
-    #     email=request.POST['email']
-    #     interests=request.POST['interests']
-    #     phone = request.POST['phone']
-    #     img=request.POST['img']
+      
 
+def expForm(request):
+    formExp= ExperienceForm()
+    if request.method=='POST':
+        formExp = ExperienceForm(request.POST, request.FILES)
+        if formExp.is_valid():
+            new_entry = formExp.save(commit=False)
+            new_entry.user = request.user
+            new_entry.save()
+            return redirect('resume')  
+    return render(request, 'experience.html', {'formExp': formExp})
 
-    #     heading=request.POST['first_name']
-    #     pImg=request.POST['first_name']
-    #     desc=request.POST['first_name']
-
-
-    #     title=request.POST['first_name']
-    #     companyName=request.POST['first_name']
-    #     data=request.POST['first_name']
-    #     date=request.POST['first_name']
-
-    #     collegeName=request.POST['first_name']
-    #     date=request.POST['first_name']
-    #     degree=request.POST['first_name']
-
-    #     personalData = UserDetails(first_name=first_name,last_name=last_name,img=img,address=address,
-    #                                email=email,interests=interests,phone=phone)
-    #     projectData=Projects(heading=heading,img=pImg,desc=desc)
-    #     experienceData=Experience(title=title,companyName=companyName,data=data,date=date)
-    #     educationData=Education(collegeName=collegeName,date=date,degree=degree)
-
-    #     personalData.save()
-    #     print("saved successfully")
-
-    #     experienceData.save()
-    #     print("saved successfully")
-
-    #     projectData.save()
-    #     print("saved successfully")
-
-    #     educationData.save()
-    #     print("saved successfully")
-    #     return redirect('index.html')
-    # else:     
-    #     return render(request,'resume_details.html')
-
+    
 
 
 
