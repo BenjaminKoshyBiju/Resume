@@ -50,17 +50,32 @@ def resumeDetail(request):
 
 def expForm(request):
    
-    # data = get_object_or_404(Experience, id=pk)
+
     
     if request.method=='POST':
-        
-        form_list= ExperienceForm()                             #Form Submission
+         # Handle delete action
+        delete_id = request.POST.get('delete_id')
+        if delete_id:
+            experience_to_delete = Experience.objects.get(id=delete_id)
+            experience_to_delete.delete()
+            return redirect('experience') 
+        #update the form
+        update_id = request.POST.get('update_id')
+        if update_id:
+            experience_to_update = Experience.objects.get(id=update_id)
+            update_form = ExperienceForm(request.POST, instance=experience_to_update)
+            if update_form.is_valid():
+                update_form.save()
+                return redirect('resume')
+         #create new experience   
         form_list = ExperienceForm(request.POST)
         if form_list.is_valid():
             form_list.save()
             return redirect('resume')
-            
-    # Handle delete action
+        
+        
+       
+   
         # if request.method == 'POST':
         #     delete_id = request.POST.get('delete_id')
         #     if delete_id:
