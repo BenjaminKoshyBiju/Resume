@@ -5,10 +5,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from .models import UserDetails,Education,Experience,Projects
 from .forms import ResumeDetailsForm,EducationForm,ExperienceForm,ProjectForm
+from django.core.files.uploadedfile import SimpleUploadedFile
 # Create your views here.
 
 
-@login_required
+
 def resume(request):
   #  UserDetails = UserDetails.objects.filter(user_id=request.user.id)
    
@@ -85,6 +86,72 @@ def expForm(request):
     experiences = Experience.objects.all() 
     form_list = [ExperienceForm(instance=experience) for experience in experiences]
     return render(request, 'experience.html', {'form_list': form_list})
+
+
+
+
+def eduForm(request):
+      
+    if request.method=='POST':
+         # Handle delete action
+        delete_id = request.POST.get('delete_id')
+        if delete_id:
+            education_to_delete = Education.objects.get(id=delete_id)
+            education_to_delete.delete()
+            return redirect('education') 
+        #update the form
+        update_id = request.POST.get('update_id')
+        if update_id:
+            education_to_update = Education.objects.get(id=update_id)
+            update_form = EducationForm(request.POST, instance=education_to_update)
+            if update_form.is_valid():
+                update_form.save()
+                return redirect('resume')
+         #create new experience   
+        form_list = EducationForm(request.POST)
+        if form_list.is_valid():
+            form_list.save()
+            return redirect('resume')
+        
+        
+       
+   
+        # if request.method == 'POST':
+        #     delete_id = request.POST.get('delete_id')
+        #     if delete_id:
+        #         record_to_delete = Experience.objects.get(id=delete_id)
+        #         record_to_delete.delete()
+        #         return redirect('resume') 
+    edus = Education.objects.all() 
+    form_list = [EducationForm(instance=edu) for edu in edus]
+    return render(request, 'education.html', {'form_list': form_list})
+
+
+
+def projectForm(request):
+    if request.method == 'POST':
+        delete_id = request.POST.get('delete_id')
+        if delete_id:
+            project_to_delete = Projects.objects.get(id=delete_id)
+            project_to_delete.delete()
+            return redirect('project')
+
+        for project in Projects.objects.all():
+            print(request.POST)
+            update_id = request.POST.get(f'update_id_{project.id}')
+            if update_id:
+                project.heading = request.POST.get(f'heading_{project.id}')
+                project.desc = request.POST.get(f'desc_{project.id}')
+                img_file = request.FILES.get(f'img_{project.id}')
+                if img_file:
+                    project.img = img_file
+                project.save()
+
+        return redirect('resume')
+
+    projects = Projects.objects.all()
+    return render(request, 'projects.html', {'projects': projects})
+
 
 
 

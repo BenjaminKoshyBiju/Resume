@@ -1,0 +1,58 @@
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div id="form-container">
+        {% for project in projects %}
+            <div class="form-instance">
+                <input type="text" name="heading_{{ project.id }}" placeholder="Heading" value="{{ project.heading }}">
+                <input type="file" name="img_{{ project.id }}" accept="image/*">
+                {% if project.img %}
+                    <img src="{{ project.img.url }}" alt="{{ project.heading }}" width="100">
+                {% else %}
+                    <p>No image</p>
+                {% endif %}
+                <textarea name="desc_{{ project.id }}" placeholder="Description">{{ project.desc }}</textarea>
+                <button type="button" class="delete-form-instance" data-id="{{ project.id }}">Delete</button>
+                <button type="button" class="update-form-instance" data-id="{{ project.id }}">Update</button>
+                <input type="hidden" name="update_id_{{ project.id }}" value="{{ project.id }}">
+            </div>
+        {% endfor %}
+    </div>
+    <button type="button" id="add-form-instance">Add New</button>
+    <button type="submit">Submit</button>
+</form>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const formContainer = document.getElementById("form-container");
+        const addFormInstanceButton = document.getElementById("add-form-instance");
+
+        addFormInstanceButton.addEventListener("click", function() {
+            const newFormInstance = document.querySelector(".form-instance").cloneNode(true);
+            formContainer.appendChild(newFormInstance);
+            bindFormInstanceEvents(newFormInstance);
+        });
+
+        function bindFormInstanceEvents(instance) {
+            console.log("Binding events for instance:", instance);
+
+            const deleteButton = instance.querySelector(".delete-form-instance");
+            deleteButton.addEventListener("click", function() {
+                console.log("Delete button clicked");
+                formContainer.removeChild(instance);
+            });
+
+            const updateButton = instance.querySelector(".update-form-instance");
+            updateButton.addEventListener("click", function() {
+                console.log("Update button clicked");
+            });
+        }
+
+        const formInstances = document.querySelectorAll(".form-instance");
+        formInstances.forEach(function(instance) {
+            bindFormInstanceEvents(instance);
+        });
+    });
+</script>
+{% endblock %}
