@@ -136,22 +136,27 @@ def projectForm(request):
             project_to_delete.delete()
             return redirect('project')
 
-        for project in Projects.objects.all():
-            print(request.POST)
-            update_id = request.POST.get(f'update_id_{project.id}')
-            if update_id:
-                project.heading = request.POST.get(f'heading_{project.id}')
-                project.desc = request.POST.get(f'desc_{project.id}')
-                img_file = request.FILES.get(f'img_{project.id}')
-                if img_file:
-                    project.img = img_file
-                project.save()
+        update_id = request.POST.get('update_id')
+        if update_id:
+            project = Projects.objects.get(id=update_id)
+            project.heading = request.POST.get(f'heading_{update_id}')
+            project.desc = request.POST.get(f'desc_{update_id}')
+            img_file = request.FILES.get(f'img_{update_id}')
+            if img_file:
+                project.img = img_file
+            project.save()
+
+        new_heading = request.POST.get('new_heading')
+        new_img = request.FILES.get('new_img')
+        new_desc = request.POST.get('new_desc')
+        if new_heading and new_desc and new_img:
+            new_project = Projects(heading=new_heading, img=new_img, desc=new_desc)
+            new_project.save()
 
         return redirect('resume')
 
     projects = Projects.objects.all()
     return render(request, 'projects.html', {'projects': projects})
-
 
 
 
