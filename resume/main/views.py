@@ -1,11 +1,6 @@
-from django.shortcuts import render,redirect,redirect,get_object_or_404
-from django.contrib.auth import authenticate, login
-from django.forms import modelformset_factory
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render,redirect,redirect
 from .models import UserDetails,Education,Experience,Projects
-from .forms import ResumeDetailsForm,EducationForm,ExperienceForm,ProjectForm
-from django.core.files.uploadedfile import SimpleUploadedFile
+from .forms import ResumeDetailsForm,EducationForm,ExperienceForm
 # Create your views here.
 
 
@@ -29,24 +24,23 @@ def resumeDetail(request):
   
     if request.method=='POST':
       
-        # formEdu = EducationForm(request.POST, request.FILES)
-        # formPro = ProjectForm(request.POST, request.FILES)
-        form = ResumeDetailsForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('resume') 
-        # if formEdu.is_valid():
-        #     formEdu.save()
+    
+        
+        # if form.is_valid():
+        #     form.save()
         #     return redirect('resume') 
+        user_to_update = UserDetails.objects.get(id=14)
+        update_form = ResumeDetailsForm(request.POST,request.FILES, instance=user_to_update)
+        if update_form.is_valid():
+                update_form.save()
+                return redirect('experience')
 
-        # if formPro.is_valid():
-        #     formPro.save()
-        #     return redirect('resume')  
 
 
 
-
-    return render(request, 'resume_det.html', {'form': form})
+    details = UserDetails.objects.all() 
+    form_list = [ResumeDetailsForm(instance=detail) for detail in details]
+    return render(request, 'resume_det.html', {'form_list': form_list})
       
 
 def expForm(request):
