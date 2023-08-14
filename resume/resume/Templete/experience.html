@@ -3,10 +3,15 @@
     {% csrf_token %}
     <div id="form-container">
         {% for form in form_list %}
-            <div class="form-instance">
-                {{ form.as_table }}
+        <div class="form-instance">
+            
+            
+            {{ form.as_table }}
+
+       
+
                 <button type="submit" name="delete_id" value="{{ form.instance.id }}">Delete</button>
-                <button type="submit" name="update_id" value="{{ form.instance.id }}">Update</button>
+                <!-- <button type="submit" class="update_id" value="{{ form.id }}">Update</button> -->
             </div>
         {% endfor %}
     </div>
@@ -14,41 +19,41 @@
     <button type="submit">Submit</button>
 </form>
 
-    <style>
-        /* Add this CSS within the <style> tag */
-        .selected {
-            background-color: #f2f2f2;
-        }
-    </style>
+<style>
+    /* Add this CSS within the <style> tag */
+    .selected {
+        background-color: #f2f2f2;
+    }
+</style>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const formContainer = document.getElementById("form-container");
-            const addFormInstanceButton = document.getElementById("add-form-instance");
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const formContainer = document.getElementById("form-container");
+        const addFormInstanceButton = document.getElementById("add-form-instance");
 
-            addFormInstanceButton.addEventListener("click", function() {
-                const newFormInstance = document.querySelector(".form-instance").cloneNode(true);
-                formContainer.appendChild(newFormInstance);
-                bindFormInstanceEvents(newFormInstance);
-            });
-
-            function bindFormInstanceEvents(instance) {
-                const deleteButton = instance.querySelector(".delete-form-instance");
-                deleteButton.addEventListener("click", function() {
-                    formContainer.removeChild(instance);
-                });
-
-                const updateButton = instance.querySelector(".update-form-instance");
-                updateButton.addEventListener("click", function() {
-                    // Show textbox for update and update logic
-                    // You can use JavaScript to toggle visibility and handle update
-                });
-            }
-
-            const formInstances = document.querySelectorAll(".form-instance");
-            formInstances.forEach(function(instance) {
-                bindFormInstanceEvents(instance);
-            });
+        addFormInstanceButton.addEventListener("click", function() {
+            const newFormInstance = document.querySelector(".form-instance").cloneNode(true);
+            formContainer.appendChild(newFormInstance);
+            bindFormInstanceEvents(newFormInstance);
         });
-    </script>
-{% endblock %}
+
+        function bindFormInstanceEvents(instance) {
+            const deleteButton = instance.querySelector(".delete-form-instance");
+            deleteButton.addEventListener("click", function() {
+                formContainer.removeChild(instance);
+            });
+
+            const updateButton = instance.querySelector(".update-form-instance");
+            updateButton.addEventListener("click", function() {
+                // Show textbox for update and update logic
+                // You can use JavaScript to toggle visibility and handle update
+            });
+        }
+
+        const formInstances = document.querySelectorAll(".form-instance");
+        formInstances.forEach(function(instance) {
+            bindFormInstanceEvents(instance);
+        });
+    });
+</script>
+{% endblock %} 

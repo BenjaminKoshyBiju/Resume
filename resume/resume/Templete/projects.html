@@ -14,7 +14,7 @@
             <textarea name="new_desc" placeholder="Description">{{ project.desc }}</textarea>
             <button type="submit" name="delete_id" value="{{ project.id }}">Delete</button>
             <button type="submit" name="update_id" value="{{ project.id }}">Update</button>
-            
+
         </div>
     {% endfor %}
     </div>
@@ -50,7 +50,7 @@
                 const imgInput = instance.querySelector(`[name="img_${projectId}"]`);
                 const descInput = instance.querySelector(`[name="desc_${projectId}"]`);
                 
-                // Implement your update logic here
+                // Implement update logic here
             });
         }
     
