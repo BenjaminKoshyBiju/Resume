@@ -23,8 +23,8 @@ load_dotenv(BASE_DIR / '.env')
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-v21_s00(aia58+&(dl@+o30vmmxgn%hg$1!jwv$w&u*$@o6lm*'
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = 'b00fe9d3034f0ae2308bee51a1577993'
+# SECRET_KEY = os.getenv('SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -89,7 +89,7 @@ DATABASES = {
         # 'USER': 'postgres',
         # 'PASSWORD': '1234',
         # 'HOST': 'localhost'
-        dj_database_url.parse(os.environ.get('DATABASE_URL'), conn_max_age=600),
+         dj_database_url.parse(os.environ.get('DATABASE_URL'), conn_max_age=600)
     
 }
 
