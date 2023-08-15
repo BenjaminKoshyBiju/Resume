@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(' ')
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -82,14 +82,14 @@ WSGI_APPLICATION = 'resume.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'default': 
         # 'ENGINE': 'django.db.backends.postgresql',
         # 'NAME': 'Resume',
         # 'USER': 'postgres',
         # 'PASSWORD': '1234',
         # 'HOST': 'localhost'
-        dj_database_url.parse(os.environ.get('postgres://user:postgres/Resume'), conn_max_age=600),
-    }
+        dj_database_url.parse(os.environ.get('DATABASE_URL'), conn_max_age=600),
+    
 }
 
 
