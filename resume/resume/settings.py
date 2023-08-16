@@ -86,11 +86,19 @@ else:
     DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Resume',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
-        'HOST': 'localhost'
+        'NAME': 'resume_r4pq',
+        'USER': 'postgress',
+        'PASSWORD': 'eL2MXbR3Rsq3gqxy0HvpJ2YlcLXwf0FM',
+        'HOST': 'dpg-cjds2c0q339s73f5b3kg-a.oregon-postgres.render.com'
     }
+
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'Resume',
+    #     'USER': 'postgres',
+    #     'PASSWORD': '1234',
+    #     'HOST': 'dpg-cjds2c0q339s73f5b3kg-a.oregon-postgres.render.com'
+    # }
 }
 
 
