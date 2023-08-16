@@ -11,12 +11,12 @@ def resume(request):
    experiences=Experience.objects.all()
    projects=Projects.objects.all()
    eds=Education.objects.all()
-#    data=({'details':details,
-#          'experiences':experiences,
-#          'projects':projects,
-#          'eds':eds
-#          })
-   return render(request, 'index.html',{'details':details})
+   data=({'details':details,
+         'experiences':experiences,
+         'projects':projects,
+         'eds':eds
+         })
+   return render(request, 'index.html',data )
 
 
 
