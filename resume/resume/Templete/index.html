@@ -21,9 +21,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
             <a class="navbar-brand js-scroll-trigger" href="#page-top">
                 <span class="d-block d-lg-none">Benjamin Portfolio</span>
-                {%for detail in details%}
-                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="{{detail.img.url}}" alt="..." /></span>
-                {%endfor%}
+               
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -43,42 +41,13 @@
             <!-- About-->
             <section class="resume-section" id="about">
                 <div class="resume-section-content">
-                   {%for detail in details%}
-                    <h1 class="mb-0">
-                        {{detail.first_name}}
-                        <span class="text-primary">{{detail.last_name}}</span>
-                    </h1>
-                    <div class="subheading mb-5">
-                        {{detail.address}} · +91{{detail.phone}} ·
-                        <a href="mailto:name@email.com">{{detail.email}}</a>
-                    </div>
-                    <p class="lead mb-5">With a Master of Computer Applications degree in hand, I have honed a strong foundation in computer science and software development. Throughout my academic journey, I've passionately delved into numerous projects, allowing me to cultivate expertise in backend development. My commitment to this domain is reflected in my role as a Software Developer Intern during my final semester, where I contributed to real-world projects and gained valuable hands-on experience.</p>
-                    <p class="lead mb-5"> Currently, I am leveraging my tech-savviness and creativity as a Digital Marketing Executive, employing my technical skills to enhance marketing strategies. This diverse blend of experiences has not only fortified my backend development prowess but also provided me with a holistic perspective on technology's multifaceted applications.</p>
-                    <div class="social-icons">
-                        <a class="social-icon" href="https://www.linkedin.com/in/benjamin-koshy/"><i class="fab fa-linkedin-in"></i></a>
-                        <a class="social-icon" href="https://github.com/BenjaminKoshyBiju"><i class="fab fa-github"></i></a>
-                        <a class="social-icon" href="https://www.instagram.com/benjamin.koshybiju/"><i class="fab fa-instagram"></i></a>
-                        
-                    </div>
-                    
-                </div>
-            </section>
-            {%endfor%}
+                  
             <hr class="m-0" />
             <!-- Experience-->
             <section class="resume-section" id="experience">
                 <div class="resume-section-content">
                     <h2 class="mb-5">Experience</h2>
-                    {%for experience in experiences%}
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">{{experience.title}}</h3>
-                            <div class="subheading mb-3">{{experience.companyName}}</div>
-                            <p>{{experience.data}}</p>
-                        </div>
-                        <div class="flex-shrink-0"><span class="text-primary">{{experience.date}}</span></div>
-                    </div>
-                    {%endfor%}
+                   
                 </div>
             </section>
             <hr class="m-0" />
@@ -134,17 +103,7 @@
 					<p>These are some of my Personal Projects I have worked in</p>
 				</div>
 				<div class="projects_inner row">
-                    {%for project in projects%}
-					<div class="col-lg-4 col-sm-6 brand web">
-						<div class="projects_item">
-							<img class="img-fluid" src="{{project.img.url}}" alt="">
-							<div class="projects_text">
-								<h4>{{project.heading}}</h4>
-								<p>{{project.desc}}</p>
-							</div>
-						</div>
-					</div>
-                    {%endfor%}
+                    
 				</div>
         	</div>
         </section>
@@ -161,15 +120,7 @@
             <section class="resume-section" id="education">
                 <div class="resume-section-content">
                     <h2 class="mb-5">Education</h2>
-                    {%for edu in eds%}
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">{{edu.collegeName}}</h3>
-                            <div class="subheading mb-3">{{edu.Degree}}</div>
-                        </div>
-                        <div class="flex-shrink-0"><span class="text-primary">{{edu.date}}</span></div>
-                    </div>
-                    {%endfor%}
+                  
                 </div>
             </section>
             <hr class="m-0" />
