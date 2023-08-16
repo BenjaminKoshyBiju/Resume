@@ -12,26 +12,23 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-from dotenv import load_dotenv
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-load_dotenv(BASE_DIR / '.env')
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'b00fe9d3034f0ae2308bee51a1577993'
+# SECRET_KEY = 'django-insecure-v21_s00(aia58+&(dl@+o30vmmxgn%hg$1!jwv$w&u*$@o6lm*'
 SECRET_KEY = os.getenv('SECRET_KEY')
 
-
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -56,7 +53,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'resume.urls'
@@ -64,7 +60,7 @@ ROOT_URLCONF = 'resume.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': ['W:/Dprojects/Resume/resume/resume/Templete'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -82,16 +78,17 @@ WSGI_APPLICATION = 'resume.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {
-    'default': 
-        # 'ENGINE': 'django.db.backends.postgresql',
-        # 'NAME': 'Resume',
-        # 'USER': 'postgres',
-        # 'PASSWORD': '1234',
-        # 'HOST': 'localhost'
-         dj_database_url.parse(os.environ.get('DATABASE_URL'), conn_max_age=600)
-    
+if not DEBUG:
+    DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))}
+else:
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'Resume',
+        'USER': 'postgres',
+        'PASSWORD': '1234',
+        'HOST': 'localhost'
+    }
 }
 
 
@@ -143,7 +140,5 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'media/')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
