@@ -403,48 +403,63 @@ button,
 [type=button],
 [type=reset],
 [type=submit] {
-  -webkit-appearance: button;
+    display: inline-block;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    background-color: #f5f5f5;
+    color: #333;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
 }
+
 button:not(:disabled),
 [type=button]:not(:disabled),
 [type=reset]:not(:disabled),
 [type=submit]:not(:disabled) {
-  cursor: pointer;
+    cursor: pointer;
 }
 
+/* Remove default focus styles */
 ::-moz-focus-inner {
-  padding: 0;
-  border-style: none;
+    padding: 0;
+    border-style: none;
 }
 
+/* Textarea resizing */
 textarea {
-  resize: vertical;
+    resize: vertical;
 }
 
+/* Remove fieldset default styles */
 fieldset {
-  min-width: 0;
-  padding: 0;
-  margin: 0;
-  border: 0;
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
 }
 
+/* Style legend */
 legend {
-  float: left;
-  width: 100%;
-  padding: 0;
-  margin-bottom: 0.5rem;
-  font-size: calc(1.275rem + 0.3vw);
-  line-height: inherit;
-}
-@media (min-width: 1200px) {
-  legend {
-    font-size: 1.5rem;
-  }
-}
-legend + * {
-  clear: left;
+    float: left;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 0.5rem;
+    font-size: calc(1.275rem + 0.3vw);
+    line-height: inherit;
 }
 
+@media (min-width: 1200px) {
+    legend {
+        font-size: 1.5rem;
+    }
+}
+
+legend + * {
+    clear: left;
+}
+
+/* Remove datetime input default styles */
 ::-webkit-datetime-edit-fields-wrapper,
 ::-webkit-datetime-edit-text,
 ::-webkit-datetime-edit-minute,
@@ -452,37 +467,49 @@ legend + * {
 ::-webkit-datetime-edit-day-field,
 ::-webkit-datetime-edit-month-field,
 ::-webkit-datetime-edit-year-field {
-  padding: 0;
+    padding: 0;
 }
 
+/* Remove inner spin button style */
 ::-webkit-inner-spin-button {
-  height: auto;
+    height: auto;
 }
 
+/* Style search input */
 [type=search] {
-  outline-offset: -2px;
-  -webkit-appearance: textfield;
+    outline-offset: -2px;
+    appearance: none;
 }
 
-/* rtl:raw:
+/* Remove default styles for specific input types */
 [type="tel"],
 [type="url"],
 [type="email"],
 [type="number"] {
-  direction: ltr;
+    direction: ltr;
 }
-*/
+
+/* Remove search input decoration */
 ::-webkit-search-decoration {
-  -webkit-appearance: none;
+    appearance: none;
 }
 
+/* Remove color swatch wrapper padding */
 ::-webkit-color-swatch-wrapper {
-  padding: 0;
+    padding: 0;
 }
 
+/* Style file input button */
 ::file-selector-button {
-  font: inherit;
-  -webkit-appearance: button;
+    font: inherit;
+    display: inline-block;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    background-color: #f5f5f5;
+    color: #333;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 output {
@@ -10988,7 +11015,7 @@ section.resume-section .resume-section-content {
     padding-bottom: 5rem;
   }
 }
-        </style>
+</style>
 
     </head>
     <body id="page-top">
