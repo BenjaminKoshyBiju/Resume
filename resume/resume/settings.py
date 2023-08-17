@@ -137,7 +137,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS=STATICFILES_DIRS = '/opt/render/project/src/resume/main/static'
+STATICFILES_DIRS=STATICFILES_DIRS = ["'/opt/render/project/src/resume/main/static'"]
 
 
 STATIC_ROOT= os.path.join(BASE_DIR,'Asset')
